@@ -30,12 +30,8 @@ export function checkWeixinSignature({
   nonce,
 }: WeixinSignatureParams) {
   const arr = [WX_TOKEN, timestamp, nonce].sort();
-  const temp = sha1(arr.join(""));
-  console.log(temp);
-  console.log(signature);
-  
-  
-  if (temp === signature) {
+  const signStr = sha1(arr.join(""));
+  if (signStr === signature) {
     return true;
   }
   return false;
