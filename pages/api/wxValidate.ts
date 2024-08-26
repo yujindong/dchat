@@ -12,6 +12,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     const query = req.query as unknown as WeixinSignatureParams;
     const isValid = checkWeixinSignature(query);
+    console.log(query);
+    console.log(WX_TOKEN);
+    
+    
     if (isValid) {
       return res.send(query.echostr);
     }
@@ -25,11 +29,15 @@ export function checkWeixinSignature({
   timestamp,
   nonce,
 }: WeixinSignatureParams) {
-  const arr = [WX_TOKEN, timestamp, nonce];
-  arr.sort();
+  const arr = [WX_TOKEN, timestamp, nonce].sort();
   const temp = sha1(arr.join(""));
+  console.log(temp);
+  console.log(signature);
+  
+  
   if (temp === signature) {
     return true;
   }
   return false;
 }
+
