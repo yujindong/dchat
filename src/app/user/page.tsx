@@ -1,5 +1,8 @@
 import React from "react";
 import { sql } from "@vercel/postgres";
+
+export const dynamic = "force-dynamic";
+
 async function getData(params: { user: string }) {
   const { rows } = await sql`SELECT * from users where id=${params.user}`;
   console.log(rows);
